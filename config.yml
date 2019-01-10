@@ -1,0 +1,12 @@
+environment: demo
+
+logging:
+  level: INFO
+  loggers:
+    caw: DEBUG
+
+database:
+  driverClass: org.postgresql.Driver
+  user: demo
+  password: demo
+  url: jdbc:postgresql://localhost:5555/demo
