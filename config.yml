@@ -10,3 +10,6 @@ database:
   user: demo
   password: demo
   url: jdbc:postgresql://localhost:5555/demo
+
+swagger:
+  resourcePackage: "caw"

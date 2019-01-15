@@ -9,6 +9,8 @@ import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.migrations.MigrationsBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.jdbi.v3.core.Jdbi;
 
 public class DropWizardDemoApplication extends Application<DropWizardDemoConfiguration> {
@@ -30,6 +32,13 @@ public class DropWizardDemoApplication extends Application<DropWizardDemoConfigu
                return configuration.getDataSourceFactory();
            }
        });
+
+        bootstrap.addBundle(new SwaggerBundle<DropWizardDemoConfiguration>() {
+            @Override
+            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(DropWizardDemoConfiguration configuration) {
+                return configuration.swaggerBundleConfiguration;
+            }
+        });
     }
 
     @Override

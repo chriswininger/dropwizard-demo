@@ -3,6 +3,7 @@ package caw;
 import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.db.DataSourceFactory;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.hibernate.validator.constraints.*;
 
 import javax.validation.Valid;
@@ -21,6 +22,9 @@ public class DropWizardDemoConfiguration extends Configuration {
   @NotNull
   @JsonProperty
   private DataSourceFactory database = new DataSourceFactory();
+
+  @JsonProperty("swagger")
+  public SwaggerBundleConfiguration swaggerBundleConfiguration;
 
   public DataSourceFactory getDataSourceFactory() {
     return database;
