@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 import caw.db.AuthorDAO;
 import caw.models.AuthorModel;
+import com.codahale.metrics.annotation.Metered;
 import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +33,7 @@ public class AuthorResource
   }
 
   @GET
-  @Timed
+  @Metered
   @ApiOperation(value = "Get a list of all authors", response = AuthorModel.class, responseContainer = "List")
   public List<AuthorModel> getAllAuthors() {
     return this.authorDAO.getAllAuthors();
