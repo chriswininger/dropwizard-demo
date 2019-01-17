@@ -1,0 +1,24 @@
+<div *ngIf="loading">
+  <strong>Loading...</strong>
+</div>
+
+<div *ngIf="!loading">
+  <ul class="book-list">
+    <li *ngFor="let book of books">
+      <div>
+      <strong>{{ book.title }}</strong>
+      </div>
+      <div>
+        <em>
+          {{ booksByAuthor[book.id] ? booksByAuthor[book.id].name : 'Loading Author...' }}
+        </em>
+      </div>
+      <div>
+        <app-chapter-list
+          [bookId] = "book.id"
+        >
+        </app-chapter-list>
+      </div>
+    </li>
+  </ul>
+</div>
