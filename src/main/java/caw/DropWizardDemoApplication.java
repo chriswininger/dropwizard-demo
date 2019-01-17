@@ -1,5 +1,10 @@
 package caw;
 
+import java.util.EnumSet;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+
 import caw.db.AuthorDAO;
 import caw.db.BookDao;
 import caw.db.ChapterDAO;
@@ -19,6 +24,7 @@ import io.swagger.annotations.Contact;
 import io.swagger.annotations.Info;
 import io.swagger.annotations.License;
 import io.swagger.annotations.SwaggerDefinition;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.jdbi.v3.core.Jdbi;
 
 @SwaggerDefinition (
@@ -65,6 +71,17 @@ public class DropWizardDemoApplication extends Application<DropWizardDemoConfigu
     public void run(final DropWizardDemoConfiguration configuration,
                     final Environment environment
     ) {
+        // configure cors
+        final FilterRegistration.Dynamic cors =
+            environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+
+        cors.setInitParameter("allowedOrigins", "*");
+        cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
+        cors.setInitParameter("allowedHeaders", "*");
+        cors.setInitParameter("allowCredentials", "true");
+        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+
+        // setup jdbi
         final JdbiFactory factory = new JdbiFactory();
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
 
